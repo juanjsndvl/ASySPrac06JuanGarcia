@@ -1,0 +1,699 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>P06: Sistemas Diferenciales y en Diferencias</title><meta name="generator" content="MATLAB 9.3"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2019-05-28"><meta name="DC.source" content="index.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>P06: Sistemas Diferenciales y en Diferencias</h1><!--introduction--><p><b>UNIDAD PROFESIONAL INTERDISCIPLINARIA EN INGENIER&Iacute;A Y TECNOLOG&Iacute;AS AVANZADAS</b></p><p><b>An&aacute;lisis de Se&ntilde;ales y Sistemas</b></p><p>Autor: Garc&iacute;a Sandoval Juan Jes&uacute;s 2MV1</p><p>Profesor: Dr Rafael Mart&iacute;nez Mart&iacute;nez</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">1.1. Funci&oacute;n de Transferencia</a></li><li><a href="#7">1.2. Respuesta al impulso</a></li><li><a href="#8">1.3. Respuesta a Entrada Cero</a></li><li><a href="#9">1.4. Respuesta a Estado Cero</a></li><li><a href="#10">1.5. Respuesta Total</a></li><li><a href="#11">1.6. Respuesta al Escal&oacute;n</a></li><li><a href="#12">1.7. Subplot</a></li><li><a href="#14">2.1. Funci&oacute;n de Transferencia</a></li><li><a href="#17">2.2. Respuesta al impulso</a></li><li><a href="#18">2.3. Respuesta a Entrada Cero</a></li><li><a href="#19">2.4. Respuesta a Estado Cero</a></li><li><a href="#20">2.5. Respuesta Total</a></li><li><a href="#21">1.6. Respuesta al Escal&oacute;n</a></li><li><a href="#22">2.7. Subplot</a></li><li><a href="#24">Referencias</a></li></ul></div><h2 id="1">1.1. Funci&oacute;n de Transferencia</h2><p>Tenemos un sistema descrito por la funci&oacute;n <img src="index_eq09433690155023174579.png" alt="$y''+2y'+2y=x'+2x$"> de la cual calcularemos la funci&iacute;on de transferencia: para esto hemos implementado la funci&oacute;n <i>Transf</i> la cual calcula la funci&oacute;n de transferencia mediante la transformada de Laplace:</p><p><img src="index_eq09206293201566426759.png" alt="$$H(s)=\frac{P(s)}{Q(s)}$$"></p><p>donde:</p><p><img src="index_eq17977434433123645213.png" alt="$P(s)=\sum_0^m b_i s^i$"></p><p>y <img src="index_eq01205246665719787620.png" alt="$Q(s)=\sum_0^n a_j s^j$"></p><pre class="codeinput">clear <span class="string">All</span>
+syms <span class="string">t</span>
+sympref(<span class="string">'HeavisideAtOrigin'</span>, 1);
+H=Transf([2 2 1],[2 1],[0 0],[0]);
+</pre><pre class="codeoutput">Transformada de Laplace:
+                     2
+2 Y(s) + 2 s Y(s) + s  Y(s)
+
+=
+2 X(s) + s X(s)
+
+Factorizando X(s) y Y(s):
+  2
+(s  + 2 s + 2) Y(s)
+
+=
+(s + 2) X(s)
+
+Obtenemos entonces la funci&oacute;n de Transferencia:
+H(s)=
+    s + 2
+------------
+ 2
+s  + 2 s + 2
+
+</pre><p>El c&oacute;digo de la funci&oacute;n <i>Transf</i> se encuentra en el siguiente <a href="https://drive.google.com/file/d/1C9nhX9tC3g8b8iF7aYNbkIXtlkgUtqm7/view?usp=sharing">enlace</a></p><h2 id="7">1.2. Respuesta al impulso</h2><p>Por definici&oacute;n la respuesta al impulso es la transformada inversa a la funci&oacute;n de transferencia, por lo tanto:</p><pre class="codeinput">disp(<span class="string">'y(t)='</span>)
+h(t)=ilaplace(H);
+pretty(h(t))
+t=0:0.01:10;
+plot(t,h(t),<span class="string">'b'</span>,<span class="string">'LineWidth'</span>,2)
+hold <span class="string">on</span>
+plot(t,dirac(t),<span class="string">'r'</span>,<span class="string">'LineWidth'</span>,2)
+grid <span class="string">on</span>
+legend(<span class="string">'Salida y(t)'</span>,<span class="string">'Entrada x(t)=delta(t)'</span>,<span class="string">'Location'</span>,<span class="string">'Best'</span>)
+</pre><pre class="codeoutput">y(t)=
+exp(-t) (cos(t) + sin(t))
+
+</pre><img vspace="5" hspace="5" src="index_01.png" alt=""> <h2 id="8">1.3. Respuesta a Entrada Cero</h2><p>Se ha implementado la funci&oacute;n <i>laplace2016a</i> para calcular la respuesta a entrada cero del sistema descrito por la funci&oacute;n <img src="index_eq09433690155023174579.png" alt="$y''+2y'+2y=x'+2x$"> con condiciones iniciales <img src="index_eq15145402133689438446.png" alt="$y(0)=1;y'(0)=1$"></p><pre class="codeinput">syms <span class="string">t</span>
+sympref(<span class="string">'HeavisideAtOrigin'</span>, 1);
+yxo(t)=laplace2016a([2 2 1],[2 1],[1 1],[0],heaviside(t)-heaviside(t),10);
+</pre><pre class="codeoutput"> 
+APLICAMOS TRANSFORMADA DE LAPLACE y sustituimos condiciones iniciales
+ 
+                         2
+2 Y(s) - s + 2 s Y(s) + s  Y(s) - 3
+
+=
+2 X(s) + s X(s)
+
+ 
+SUSTITUIMOS LA TRANSFORMADA DE LA ENTRADA
+ 
+                         2
+2 Y(s) - s + 2 s Y(s) + s  Y(s) - 3
+
+=
+0
+
+ 
+DESPEJAMOS Y(s)
+ 
+Y(s)=
+    s + 3
+------------
+ 2
+s  + 2 s + 2
+
+ 
+DESARROLLAMOS LAS FRACCIONES PARCIALES DE Y(s)
+ 
+Y(s)=
+    s + 3
+------------
+ 2
+s  + 2 s + 2
+
+ 
+Aplicamos transformada inversa, asi la soluci&oacute;n es
+ 
+y(t)=
+exp(-t) (cos(t) + 2 sin(t))
+
+</pre><img vspace="5" hspace="5" src="index_02.png" alt=""> <h2 id="9">1.4. Respuesta a Estado Cero</h2><p>Se ha implementado la funci&oacute;n <i>laplace2016a</i> para calcular la respuesta a estado cero del sistema descrito por la funci&oacute;n <img src="index_eq09433690155023174579.png" alt="$y''+2y'+2y=x'+2x$"> y entrada <img src="index_eq05733120675232018958.png" alt="$x(t)=e^{-t}u(t)$"></p><pre class="codeinput">syms <span class="string">t</span>
+sympref(<span class="string">'HeavisideAtOrigin'</span>, 1);
+yyo(t)=laplace2016a([2 2 1],[2 1],[0 0],[1],exp(-t)*heaviside(t),10);
+</pre><pre class="codeoutput"> 
+APLICAMOS TRANSFORMADA DE LAPLACE y sustituimos condiciones iniciales
+ 
+                     2
+2 Y(s) + 2 s Y(s) + s  Y(s)
+
+=
+2 X(s) + s X(s) - 1
+
+ 
+SUSTITUIMOS LA TRANSFORMADA DE LA ENTRADA
+ 
+                     2
+2 Y(s) + 2 s Y(s) + s  Y(s)
+
+=
+  s       2
+----- + ----- - 1
+s + 1   s + 1
+
+ 
+DESPEJAMOS Y(s)
+ 
+Y(s)=
+         1
+-------------------
+ 3      2
+s  + 3 s  + 4 s + 2
+
+ 
+DESARROLLAMOS LAS FRACCIONES PARCIALES DE Y(s)
+ 
+Y(s)=
+  1         s + 1
+----- - ------------
+s + 1    2
+        s  + 2 s + 2
+
+ 
+Aplicamos transformada inversa, asi la soluci&oacute;n es
+ 
+y(t)=
+exp(-t) - exp(-t) cos(t)
+
+</pre><img vspace="5" hspace="5" src="index_03.png" alt=""> <h2 id="10">1.5. Respuesta Total</h2><p>Se ha calculado la respuesta total del sistema descrito por la funci&oacute;n <img src="index_eq09433690155023174579.png" alt="$y''+2y'+2y=x'+2x$">, condiciones iniciales <img src="index_eq15145402133689438446.png" alt="$y(0)=1;y'(0)=1$"> y entrada <img src="index_eq05733120675232018958.png" alt="$x(t)=e^{-t}u(t)$"></p><pre class="codeinput">close <span class="string">All</span>
+yt(t)=yxo(t)+yyo(t);
+disp(<span class="string">'yt(t)='</span>)
+pretty(yt(t))
+t=0:0.01:10;
+plot(t,yt(t),<span class="string">'b'</span>,<span class="string">'LineWidth'</span>,2)
+hold <span class="string">on</span>
+plot(t,exp(-t).*heaviside(t),<span class="string">'r'</span>,<span class="string">'LineWidth'</span>,2)
+hold <span class="string">on</span>
+plot(t,yxo(t),<span class="string">'g'</span>,<span class="string">'LineWidth'</span>,2)
+hold <span class="string">on</span>
+plot(t,yyo(t),<span class="string">'y'</span>,<span class="string">'LineWidth'</span>,2)
+grid <span class="string">on</span>
+legend(<span class="string">'Respuesta Total'</span>,<span class="string">'Entrada x(t)'</span>,<span class="string">'Respuesta a Entrada Cero'</span>,<span class="string">'Respuesta a Estado Cero'</span>,<span class="string">'Location'</span>,<span class="string">'Best'</span>)
+</pre><pre class="codeoutput">yt(t)=
+exp(-t) + exp(-t) (cos(t) + 2 sin(t)) - exp(-t) cos(t)
+
+</pre><img vspace="5" hspace="5" src="index_04.png" alt=""> <h2 id="11">1.6. Respuesta al Escal&oacute;n</h2><p>Se ha implementado la funci&oacute;n <i>laplace2016a</i> para calcular la respuesta del sistema descrito por la funci&oacute;n <img src="index_eq09433690155023174579.png" alt="$y''+2y'+2y=x'+2x$"> y entrada <img src="index_eq10441982471041645248.png" alt="$x(t)=u(t)$"> y condiciones iniciales 0</p><pre class="codeinput">syms <span class="string">t</span>
+sympref(<span class="string">'HeavisideAtOrigin'</span>, 1);
+yu(t)=laplace2016a([2 2 1],[2 1],[0 0],[1],heaviside(t),10);
+</pre><pre class="codeoutput"> 
+APLICAMOS TRANSFORMADA DE LAPLACE y sustituimos condiciones iniciales
+ 
+                     2
+2 Y(s) + 2 s Y(s) + s  Y(s)
+
+=
+2 X(s) + s X(s) - 1
+
+ 
+SUSTITUIMOS LA TRANSFORMADA DE LA ENTRADA
+ 
+                     2
+2 Y(s) + 2 s Y(s) + s  Y(s)
+
+=
+2
+-
+s
+
+ 
+DESPEJAMOS Y(s)
+ 
+Y(s)=
+        2
+----------------
+    2
+s (s  + 2 s + 2)
+
+ 
+DESARROLLAMOS LAS FRACCIONES PARCIALES DE Y(s)
+ 
+Y(s)=
+1       s + 2
+- - ------------
+s    2
+    s  + 2 s + 2
+
+ 
+Aplicamos transformada inversa, asi la soluci&oacute;n es
+ 
+y(t)=
+1 - exp(-t) (cos(t) + sin(t))
+
+</pre><img vspace="5" hspace="5" src="index_05.png" alt=""> <h2 id="12">1.7. Subplot</h2><p>Se ha desarrollado una funci&oacute;n llamada <i>FigContinua</i> la cual muestra las gr&aacute;ficas anteriores en una sola ventana</p><pre class="codeinput">syms <span class="string">t</span>
+FigContinua(10,dirac(t),h(t),<span class="string">'Respuesta al Impulso'</span>,heaviside(t)-heaviside(t),yxo(t),<span class="keyword">...</span>
+    <span class="string">'Respuesta a Entrada Cero'</span>,exp(-t)*heaviside(t),yyo(t),<span class="string">'Respuesta a Estado Cero'</span>,<span class="keyword">...</span>
+    exp(-t).*heaviside(t),yt(t),<span class="string">'Respuesta Total'</span>,heaviside(t),yu(t),<span class="string">'Respuesta al Escal&oacute;n'</span>)
+</pre><img vspace="5" hspace="5" src="index_06.png" alt=""> <p>El c&oacute;digo de la funci&oacute;n <i>FigContinua</i> se encuentra en siguiente <a href="https://drive.google.com/file/d/18v2ed3VZlUOc8P5Kjte7O13vbWwhbuks/view?usp=sharing">enlace</a></p><h2 id="14">2.1. Funci&oacute;n de Transferencia</h2><p>Tenemos un sistema descrito por la funci&oacute;n <img src="index_eq01569282092998710335.png" alt="$6y[n+2]+5y[n+1]+y[n]=x[n+1]+x[n]$"> de la cual calcularemos la funci&iacute;on de transferencia: para esto hemos implementado la funci&oacute;n <i>Transfr</i> la cual calcula la funci&oacute;n de transferencia mediante la transformada de Laplace:</p><p><img src="index_eq06190080222770517291.png" alt="$$H[z]=\frac{P[z]}{Q[z]}$$"></p><pre class="codeinput">clear <span class="string">All</span>
+close <span class="string">All</span>
+syms <span class="string">n</span>
+sympref(<span class="string">'HeavisideAtOrigin'</span>, 1);
+Transfr([1 5 6],[1 1],[0 0],[0])
+</pre><pre class="codeoutput"> 
+Aplicamos Transformada Z 
+ 
+          2                                        2
+6 Y(z) + z  Y(z) - 5 z y(0) - z y(1) + 5 z Y(z) - z  y(0)
+
+=
+X(z) - z x(0) + z X(z)
+
+ 
+Factorizamos Y(z) y X(z)
+ 
+  2
+(z  + 5 z + 6) Y(z)
+
+=
+(z + 1) X(z)
+
+Obtenemos entonces la funci&oacute;n de Transferencia:
+H(z)=
+    z + 1
+------------
+ 2
+z  + 5 z + 6
+
+ 
+ans =
+ 
+(z + 1)/(z^2 + 5*z + 6)
+ 
+</pre><p>El c&oacute;digo de la funci&oacute;n <i>Transfr</i> se encuentra en el siguiente <a href="https://drive.google.com/file/d/1DDLFi9qGj2R5orekHSQQlnU1kX9s5Rwj/view?usp=sharing">enlace</a></p><h2 id="17">2.2. Respuesta al impulso</h2><p>Por definici&oacute;n la respuesta al impulso es la transformada inversa a la funci&oacute;n de transferencia, por lo tanto:</p><pre class="codeinput">disp(<span class="string">'y[n]='</span>)
+h(n)=iztrans(H);
+pretty(h(n))
+n=0:10;
+stem(n,h(n),<span class="string">'b'</span>,<span class="string">'LineWidth'</span>,2)
+hold <span class="string">on</span>
+stem(0,1,<span class="string">'r'</span>,<span class="string">'LineWidth'</span>,2)
+grid <span class="string">on</span>
+legend(<span class="string">'Salida y[n]'</span>,<span class="string">'Entrada x[n]=KroneckerDelta[n]'</span>,<span class="string">'Location'</span>,<span class="string">'Best'</span>)
+</pre><pre class="codeoutput">y[n]=
+                           n   1   n    / pi n \
+kroneckerDelta(n, 0) - (-1)  ---- 2  cos| ---- |
+                              n/2       \   4  /
+                             2
+
+</pre><img vspace="5" hspace="5" src="index_07.png" alt=""> <h2 id="18">2.3. Respuesta a Entrada Cero</h2><p>Se ha implementado la funci&oacute;n <i>zeta2016a</i> para calcular la respuesta a entrada cero del sistema descrito por la funci&oacute;n <img src="index_eq01569282092998710335.png" alt="$6y[n+2]+5y[n+1]+y[n]=x[n+1]+x[n]$"> con condiciones iniciales <img src="index_eq17814364991090654072.png" alt="$y(0)=1;y(1)=2$"></p><pre class="codeinput">syms <span class="string">n</span>
+sympref(<span class="string">'HeavisideAtOrigin'</span>, 1);
+yxo(n)=zeta2016a([1 5 6],[1 1],[1 2],[0],heaviside(n)-heaviside(n),10);
+</pre><pre class="codeoutput"> 
+APLICAMOS TRANSFORMADA ZETA 
+ 
+          2                                        2
+6 Y(z) + z  Y(z) - 5 z y(0) - z y(1) + 5 z Y(z) - z  y(0)
+
+=
+X(z) - z x(0) + z X(z)
+
+ 
+SUSTITUIMOS CONDICIONES INICIALES
+ 
+                 2                      2
+6 Y(z) - 11 z + z  Y(z) + 5 z Y(z) - 2 z
+
+=
+X(z) + z X(z)
+
+ 
+SUSTITUIMOS LA TRANSFORMADA DE LA ENTRADA
+ 
+                 2                      2
+6 Y(z) - 11 z + z  Y(z) + 5 z Y(z) - 2 z
+
+=
+0
+
+ 
+DESPEJAMOS Y(z)
+ 
+Y(z)=
+    2
+ 2 z  + 11 z
+------------
+ 2
+z  + 5 z + 6
+
+ 
+DESARROLLAMOS LAS FRACCIONES PARCIALES DE Y(z)
+ 
+Y(z)=
+  15      14
+----- - ----- + 2
+z + 3   z + 2
+
+ 
+Aplicamos transformada inversa, asi la solucion es
+ 
+y[n]=
+      n         n
+7 (-2)  - 5 (-3)
+
+</pre><img vspace="5" hspace="5" src="index_08.png" alt=""> <h2 id="19">2.4. Respuesta a Estado Cero</h2><p>Se ha implementado la funci&oacute;n <i>zeta2016a</i> para calcular la respuesta a estado cero del sistema descrito por la funci&oacute;n <img src="index_eq01569282092998710335.png" alt="$6y[n+2]+5y[n+1]+y[n]=x[n+1]+x[n]$"> y entrada <img src="index_eq14368982306075698669.png" alt="$x[n]=u[n]$"></p><pre class="codeinput">syms <span class="string">n</span>
+sympref(<span class="string">'HeavisideAtOrigin'</span>, 1);
+yyo(n)=zeta2016a([1 5 6],[1 1],[0 0],[0.5],heaviside(n),10);
+</pre><pre class="codeoutput"> 
+APLICAMOS TRANSFORMADA ZETA 
+ 
+          2                                        2
+6 Y(z) + z  Y(z) - 5 z y(0) - z y(1) + 5 z Y(z) - z  y(0)
+
+=
+X(z) - z x(0) + z X(z)
+
+ 
+SUSTITUIMOS CONDICIONES INICIALES
+ 
+          2
+6 Y(z) + z  Y(z) + 5 z Y(z)
+
+=
+       z
+X(z) - - + z X(z)
+       2
+
+ 
+SUSTITUIMOS LA TRANSFORMADA DE LA ENTRADA
+ 
+          2
+6 Y(z) + z  Y(z) + 5 z Y(z)
+
+=
+  1     z     /   1       \
+----- - - + z | ----- + 1 | + 1
+z - 1   2     \ z - 1     /
+
+ 
+DESPEJAMOS Y(z)
+ 
+Y(z)=
+       z
+--------------
+   2
+2 z  + 2 z - 4
+
+ 
+DESARROLLAMOS LAS FRACCIONES PARCIALES DE Y(z)
+ 
+Y(z)=
+    1           1
+--------- + ---------
+6 (z - 1)   3 (z + 2)
+
+ 
+Aplicamos transformada inversa, asi la solucion es
+ 
+y[n]=
+        n
+1   (-2)
+- - -----
+6     6
+
+</pre><img vspace="5" hspace="5" src="index_09.png" alt=""> <h2 id="20">2.5. Respuesta Total</h2><p>Se ha calculado la respuesta total del sistema descrito por la funci&oacute;n <img src="index_eq01569282092998710335.png" alt="$6y[n+2]+5y[n+1]+y[n]=x[n+1]+x[n]$">, condiciones iniciales <img src="index_eq17814364991090654072.png" alt="$y(0)=1;y(1)=2$"> y entrada <img src="index_eq14368982306075698669.png" alt="$x[n]=u[n]$"></p><pre class="codeinput">close <span class="string">All</span>
+yt(n)=yxo(n)+yyo(n);
+disp(<span class="string">'yt(n)='</span>)
+pretty(yt(n))
+n=0:10;
+stem(n,yt(n),<span class="string">'b'</span>,<span class="string">'LineWidth'</span>,2)
+hold <span class="string">on</span>
+stem(n,heaviside(n),<span class="string">'r'</span>,<span class="string">'LineWidth'</span>,2)
+grid <span class="string">on</span>
+legend(<span class="string">'Respuesta Total'</span>,<span class="string">'Entrada x[n]'</span>,<span class="string">'Respuesta a Entrada Cero'</span>,<span class="string">'Respuesta a Estado Cero'</span>,<span class="string">'Location'</span>,<span class="string">'Best'</span>)
+</pre><pre class="codeoutput">yt(n)=
+       n
+41 (-2)          n   1
+-------- - 5 (-3)  + -
+    6                6
+
+Warning: Ignoring extra legend entries. 
+</pre><img vspace="5" hspace="5" src="index_10.png" alt=""> <h2 id="21">1.6. Respuesta al Escal&oacute;n</h2><p>Se ha implementado la funci&oacute;n <i>zeta2016a</i> para calcular la respuesta del sistema descrito por la funci&oacute;n <img src="index_eq01569282092998710335.png" alt="$6y[n+2]+5y[n+1]+y[n]=x[n+1]+x[n]$"> y entrada <img src="index_eq14368982306075698669.png" alt="$x[n]=u[n]$"> y condiciones iniciales 0</p><pre class="codeinput">syms <span class="string">n</span>
+sympref(<span class="string">'HeavisideAtOrigin'</span>, 1);
+yu(n)=zeta2016a([1 5 6],[1 1],[0 0],[0.5],heaviside(n),10);
+</pre><pre class="codeoutput"> 
+APLICAMOS TRANSFORMADA ZETA 
+ 
+          2                                        2
+6 Y(z) + z  Y(z) - 5 z y(0) - z y(1) + 5 z Y(z) - z  y(0)
+
+=
+X(z) - z x(0) + z X(z)
+
+ 
+SUSTITUIMOS CONDICIONES INICIALES
+ 
+          2
+6 Y(z) + z  Y(z) + 5 z Y(z)
+
+=
+       z
+X(z) - - + z X(z)
+       2
+
+ 
+SUSTITUIMOS LA TRANSFORMADA DE LA ENTRADA
+ 
+          2
+6 Y(z) + z  Y(z) + 5 z Y(z)
+
+=
+  1     z     /   1       \
+----- - - + z | ----- + 1 | + 1
+z - 1   2     \ z - 1     /
+
+ 
+DESPEJAMOS Y(z)
+ 
+Y(z)=
+       z
+--------------
+   2
+2 z  + 2 z - 4
+
+ 
+DESARROLLAMOS LAS FRACCIONES PARCIALES DE Y(z)
+ 
+Y(z)=
+    1           1
+--------- + ---------
+6 (z - 1)   3 (z + 2)
+
+ 
+Aplicamos transformada inversa, asi la solucion es
+ 
+y[n]=
+        n
+1   (-2)
+- - -----
+6     6
+
+</pre><img vspace="5" hspace="5" src="index_11.png" alt=""> <h2 id="22">2.7. Subplot</h2><p>Se ha desarrollado una funci&oacute;n llamada <i>FigDis</i> la cual muestra las gr&aacute;ficas anteriores en una sola ventana</p><pre class="codeinput">syms <span class="string">n</span>
+sympref(<span class="string">'HeavisideAtOrigin'</span>, 1);
+FigDis(10,kroneckerDelta(n),h(n),<span class="string">'Respuesta al Impulso'</span>,heaviside(n)-heaviside(n),yxo(n),<span class="keyword">...</span>
+    <span class="string">'Respuesta a Entrada Cero'</span>,heaviside(n),yyo(n),<span class="string">'Respuesta a Estado Cero'</span>,heaviside(n),yt(n),<span class="keyword">...</span>
+    <span class="string">'Respuesta Total'</span>,heaviside(n),yu(n),<span class="string">'Respuesta al Escal&oacute;n'</span>)
+</pre><img vspace="5" hspace="5" src="index_12.png" alt=""> <p>El c&oacute;digo de la funci&oacute;n <i>FigContinua</i> se encuentra en el siguiente <a href="https://drive.google.com/file/d/1E4HeRHVEFMht-D8QAEG1Ps-3knMZeTXN/view?usp=sharing">enlace</a></p><h2 id="24">Referencias</h2><div><ol><li>B.P. Lathi. (2005). Linear Systems and Signals. New York: Oxford University Press, Inc.</li><li>(2012). Juntas, pero no revueltas: sub-gr&aacute;ficas en una misma figura de Matlab . 26 mayo 2019, de 5 minutos de Matlab Sitio web: <a href="http://5minutosdematlab.blogspot.com/2012/09/juntas-pero-no-revueltas-sub-graficas.html">http://5minutosdematlab.blogspot.com/2012/09/juntas-pero-no-revueltas-sub-graficas.html</a></li></ol></div><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2017b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% P06: Sistemas Diferenciales y en Diferencias
+%
+% *UNIDAD PROFESIONAL INTERDISCIPLINARIA EN INGENIERÍA Y TECNOLOGÍAS AVANZADAS* 
+% 
+% *Análisis de Señales y Sistemas*
+%
+% Autor: García Sandoval Juan Jesús 2MV1
+%
+% Profesor: Dr Rafael Martínez Martínez
+%
+%% 1.1. Función de Transferencia
+% Tenemos un sistema descrito por la función $y''+2y'+2y=x'+2x$ de la cual calcularemos la funciíon
+% de transferencia: para esto hemos implementado la función _Transf_ la cual
+% calcula la función de transferencia mediante la transformada de Laplace:
+%%
+% $$H(s)=\frac{P(s)}{Q(s)}$$ 
+%%
+% donde: 
+%% 
+% $P(s)=\sum_0^m b_i s^i$
+%%
+% y $Q(s)=\sum_0^n a_j s^j$
+%
+clear All
+syms t
+sympref('HeavisideAtOrigin', 1);
+H=Transf([2 2 1],[2 1],[0 0],[0]);
+%%
+% El código de la función _Transf_ se encuentra en el siguiente <https://drive.google.com/file/d/1C9nhX9tC3g8b8iF7aYNbkIXtlkgUtqm7/view?usp=sharing enlace>
+%% 1.2. Respuesta al impulso
+%
+% Por definición la respuesta al impulso es la transformada inversa a la
+% función de transferencia, por lo tanto:
+%
+disp('y(t)=')
+h(t)=ilaplace(H);
+pretty(h(t))
+t=0:0.01:10;
+plot(t,h(t),'b','LineWidth',2)
+hold on
+plot(t,dirac(t),'r','LineWidth',2)
+grid on
+legend('Salida y(t)','Entrada x(t)=delta(t)','Location','Best')
+%% 1.3. Respuesta a Entrada Cero
+%
+% Se ha implementado la función _laplace2016a_ para calcular la respuesta
+% a entrada cero del sistema descrito por la función $y''+2y'+2y=x'+2x$ con
+% condiciones iniciales $y(0)=1;y'(0)=1$
+syms t
+sympref('HeavisideAtOrigin', 1);
+yxo(t)=laplace2016a([2 2 1],[2 1],[1 1],[0],heaviside(t)-heaviside(t),10);
+%% 1.4. Respuesta a Estado Cero
+%
+% Se ha implementado la función _laplace2016a_ para calcular la respuesta
+% a estado cero del sistema descrito por la función $y''+2y'+2y=x'+2x$ y
+% entrada $x(t)=e^{-t}u(t)$
+syms t
+sympref('HeavisideAtOrigin', 1);
+yyo(t)=laplace2016a([2 2 1],[2 1],[0 0],[1],exp(-t)*heaviside(t),10);
+%% 1.5. Respuesta Total
+%
+% Se ha calculado la respuesta total del sistema descrito por la función
+% $y''+2y'+2y=x'+2x$, condiciones iniciales $y(0)=1;y'(0)=1$ y 
+% entrada $x(t)=e^{-t}u(t)$
+close All
+yt(t)=yxo(t)+yyo(t);
+disp('yt(t)=')
+pretty(yt(t))
+t=0:0.01:10;
+plot(t,yt(t),'b','LineWidth',2)
+hold on
+plot(t,exp(-t).*heaviside(t),'r','LineWidth',2)
+hold on
+plot(t,yxo(t),'g','LineWidth',2)
+hold on
+plot(t,yyo(t),'y','LineWidth',2)
+grid on
+legend('Respuesta Total','Entrada x(t)','Respuesta a Entrada Cero','Respuesta a Estado Cero','Location','Best')
+%% 1.6. Respuesta al Escalón
+%
+% Se ha implementado la función _laplace2016a_ para calcular la respuesta
+% del sistema descrito por la función $y''+2y'+2y=x'+2x$ y
+% entrada $x(t)=u(t)$ y condiciones iniciales 0
+syms t
+sympref('HeavisideAtOrigin', 1);
+yu(t)=laplace2016a([2 2 1],[2 1],[0 0],[1],heaviside(t),10);
+%% 1.7. Subplot
+%
+% Se ha desarrollado una función llamada _FigContinua_ la cual muestra las
+% gráficas anteriores en una sola ventana
+%
+syms t
+FigContinua(10,dirac(t),h(t),'Respuesta al Impulso',heaviside(t)-heaviside(t),yxo(t),...
+    'Respuesta a Entrada Cero',exp(-t)*heaviside(t),yyo(t),'Respuesta a Estado Cero',...
+    exp(-t).*heaviside(t),yt(t),'Respuesta Total',heaviside(t),yu(t),'Respuesta al Escalón')
+%%
+% El código de la función _FigContinua_ se encuentra en siguiente <https://drive.google.com/file/d/18v2ed3VZlUOc8P5Kjte7O13vbWwhbuks/view?usp=sharing enlace>
+%% 2.1. Función de Transferencia
+% Tenemos un sistema descrito por la función $6y[n+2]+5y[n+1]+y[n]=x[n+1]+x[n]$ de la cual calcularemos la funciíon
+% de transferencia: para esto hemos implementado la función _Transfr_ la cual
+% calcula la función de transferencia mediante la transformada de Laplace:
+%%
+% $$H[z]=\frac{P[z]}{Q[z]}$$ 
+%
+clear All
+close All
+syms n
+sympref('HeavisideAtOrigin', 1);
+Transfr([1 5 6],[1 1],[0 0],[0])
+%%
+% El código de la función _Transfr_ se encuentra en el siguiente <https://drive.google.com/file/d/1DDLFi9qGj2R5orekHSQQlnU1kX9s5Rwj/view?usp=sharing enlace>
+%% 2.2. Respuesta al impulso
+%
+% Por definición la respuesta al impulso es la transformada inversa a la
+% función de transferencia, por lo tanto:
+%
+disp('y[n]=')
+h(n)=iztrans(H);
+pretty(h(n))
+n=0:10;
+stem(n,h(n),'b','LineWidth',2)
+hold on
+stem(0,1,'r','LineWidth',2)
+grid on
+legend('Salida y[n]','Entrada x[n]=KroneckerDelta[n]','Location','Best')
+%% 2.3. Respuesta a Entrada Cero
+%
+% Se ha implementado la función _zeta2016a_ para calcular la respuesta
+% a entrada cero del sistema descrito por la función $6y[n+2]+5y[n+1]+y[n]=x[n+1]+x[n]$ con
+% condiciones iniciales $y(0)=1;y(1)=2$
+syms n
+sympref('HeavisideAtOrigin', 1);
+yxo(n)=zeta2016a([1 5 6],[1 1],[1 2],[0],heaviside(n)-heaviside(n),10);
+%% 2.4. Respuesta a Estado Cero
+%
+% Se ha implementado la función _zeta2016a_ para calcular la respuesta
+% a estado cero del sistema descrito por la función $6y[n+2]+5y[n+1]+y[n]=x[n+1]+x[n]$ y
+% entrada $x[n]=u[n]$
+syms n
+sympref('HeavisideAtOrigin', 1);
+yyo(n)=zeta2016a([1 5 6],[1 1],[0 0],[0.5],heaviside(n),10);
+%% 2.5. Respuesta Total
+%
+% Se ha calculado la respuesta total del sistema descrito por la función
+% $6y[n+2]+5y[n+1]+y[n]=x[n+1]+x[n]$, condiciones iniciales $y(0)=1;y(1)=2$ y 
+% entrada $x[n]=u[n]$
+close All
+yt(n)=yxo(n)+yyo(n);
+disp('yt(n)=')
+pretty(yt(n))
+n=0:10;
+stem(n,yt(n),'b','LineWidth',2)
+hold on
+stem(n,heaviside(n),'r','LineWidth',2)
+grid on
+legend('Respuesta Total','Entrada x[n]','Respuesta a Entrada Cero','Respuesta a Estado Cero','Location','Best')
+%% 1.6. Respuesta al Escalón
+%
+% Se ha implementado la función _zeta2016a_ para calcular la respuesta
+% del sistema descrito por la función $6y[n+2]+5y[n+1]+y[n]=x[n+1]+x[n]$ y
+% entrada $x[n]=u[n]$ y condiciones iniciales 0
+syms n
+sympref('HeavisideAtOrigin', 1);
+yu(n)=zeta2016a([1 5 6],[1 1],[0 0],[0.5],heaviside(n),10);
+%% 2.7. Subplot
+%
+% Se ha desarrollado una función llamada _FigDis_ la cual muestra las
+% gráficas anteriores en una sola ventana
+%
+syms n
+sympref('HeavisideAtOrigin', 1);
+FigDis(10,kroneckerDelta(n),h(n),'Respuesta al Impulso',heaviside(n)-heaviside(n),yxo(n),...
+    'Respuesta a Entrada Cero',heaviside(n),yyo(n),'Respuesta a Estado Cero',heaviside(n),yt(n),...
+    'Respuesta Total',heaviside(n),yu(n),'Respuesta al Escalón')
+%%
+% El código de la función _FigContinua_ se encuentra en el siguiente <https://drive.google.com/file/d/1E4HeRHVEFMht-D8QAEG1Ps-3knMZeTXN/view?usp=sharing enlace>
+%% Referencias
+% 
+% # B.P. Lathi. (2005). Linear Systems and Signals. New York: Oxford University Press, Inc.
+% # (2012). Juntas, pero no revueltas: sub-gráficas en una misma figura de Matlab . 26 mayo 2019, de 5 minutos de Matlab Sitio web: http://5minutosdematlab.blogspot.com/2012/09/juntas-pero-no-revueltas-sub-graficas.html
+%
+
+
+##### SOURCE END #####
+--></body></html>
